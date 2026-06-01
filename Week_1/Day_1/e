@@ -1,0 +1,75 @@
+Q1.TWO SUM
+    code:
+
+
+    class Solution {
+public:
+    vector<int> twoSum(vector<int>& a, int t) {
+        vector<pair<int,int>>tem;
+        vector<int>ans;
+        for(int i=0;i<a.size();i++){
+            tem.push_back({a[i],i});
+        }
+        sort(tem.begin(),tem.end());
+        int s=0,e=a.size()-1;
+        while(s<e){
+            if(tem[s].first+tem[e].first==t){
+                ans.push_back(tem[s].second);
+                ans.push_back(tem[e].second);
+                return ans;
+            }
+            
+            else if (tem[s].first+tem[e].first<t)
+            s++;
+            else  e--;
+        }
+        return ans;
+        
+    }
+};
+
+
+
+
+Q2.REMOVE DUPLICATES FROM SORTED ARRAY
+code:
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.size()==0)
+         return 0;
+        int i=0;
+        for(int j=0;j<nums.size();j++){
+            if(nums[j]!=nums[i]){
+                i++;
+                nums[i]=nums[j];
+            }
+        } 
+        return i+1;
+        
+    }
+};
+
+
+Q3.BEST TIME TO BUY AND SELL STOCK
+code:
+
+class Solution {
+public:
+    int maxProfit(vector<int>& p) {
+         int i=0,j=1,maxpro=0;
+         while(j<p.size()){
+            if(p[i]<p[j]){
+                int profit=p[j]-p[i];
+                maxpro=max(maxpro,profit);
+            }
+            else{
+                i=j;
+            }
+            j++;
+         }
+         return maxpro;
+        
+    }
+};
