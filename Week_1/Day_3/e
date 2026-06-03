@@ -1,0 +1,57 @@
+Q1.MOVE ZEROES
+code:
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& num) {
+        int i=0,j=0;
+        while(i<num.size()){
+            if(num[i]!=0){
+                int temp=num[i];
+                num[i]=num[j];
+                num[j]=temp;
+                j++;
+            }
+            i++;
+        }
+        
+    }
+};
+
+
+
+Q2.SQUARES OF A SORTED ARRAY
+code:
+
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        for(int i=0;i<nums.size();i++){
+            nums[i]=nums[i]*nums[i];
+        }
+        sort(nums.begin(),nums.end());
+        return nums;
+        
+    }
+};
+
+
+
+Q3.CONTAINER WITH MOST WATER
+code:
+
+class Solution {
+public:
+    int maxArea(vector<int>& h) {
+        int l=0,r=h.size()-1,m_w=0;
+        while(l<r){
+            int c_w=min(h[l],h[r])*(r-l);
+            m_w=max(c_w,m_w);
+            if(h[l]<h[r])  l++;
+            else  r--;        
+        }
+        return m_w;
+
+        
+    }
+};
