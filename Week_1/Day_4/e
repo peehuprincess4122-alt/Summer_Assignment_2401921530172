@@ -1,0 +1,87 @@
+Q1.MATRIX DIAGONAL SUM
+code:
+
+class Solution {
+public:
+    int diagonalSum(vector<vector<int>>& mat) {
+        int row=0;
+        auto lambda=[&](int s,vector<int> v){
+            s+=v[row];
+            if(row!=v.size()-row-1){
+                s+=v[v.size()-row-1];
+            }
+            row++;
+            return s;
+
+        };
+        int res=accumulate(begin(mat),end(mat),0,lambda);
+        return res;
+        
+    }
+};
+
+
+
+Q2.RESHAPE THE MATRIX
+code:
+
+class Solution {
+public:
+    vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
+        vector<vector<int>>res;
+        res.push_back({});
+        int m=mat.size(),n=mat[0].size(); 
+        if(m*n!=r*c){
+            return mat;
+        }       
+        int ro=0,co=0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(co<c){
+                    res[ro].push_back(mat[i][j]);
+                    co++;                
+                }
+                else{
+                    res.push_back({});
+                    ro++;
+                    co=0;
+                    res[ro].push_back(mat[i][j]);
+                    co++;
+                }
+            }
+        }
+        return res;
+    }
+};
+
+
+
+Q3.SPIRAL MATRIX
+code:
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& m) {
+        vector<int>ans;
+        int r=m.size(),c=m[0].size();
+        int t=0,b=r-1,l=0,ri=c-1;
+        while(l<=ri&&t<=b){
+            for(int j=l;j<=ri;j++)
+            ans.push_back(m[t][j]);
+            t++;
+
+            for(int i=t;i<=b;i++)
+            ans.push_back(m[i][ri]);
+            ri--;
+            if(t<=b){
+            for(int j=ri;j>=l;j--)
+            ans.push_back(m[b][j]);
+            b--;}
+            if(l<=ri){
+            for(int i=b;i>=t;i--)
+            ans.push_back(m[i][l]);
+            l++; }                                                           
+        }
+        return ans;
+    }
+};
