@@ -1,0 +1,63 @@
+Q1.VALID PALLINDROME
+code:
+
+class Solution {
+public:
+    bool isPalindrome(string s) {
+       int st=0,e=s.size()-1;
+       while(st<e){
+
+        if(!isalnum(s[st]))
+         st++;
+
+        else if(!isalnum(s[e]))
+         e--; 
+        
+        else{
+        if(tolower(s[st])!=tolower(s[e]))
+         return false;
+        st++;e--; }
+       }
+       return true;
+    }
+};
+
+
+
+Q2.REVERSE STRING
+code:
+
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+        int st=0,e=s.size()-1;
+        while(st<e){
+            swap(s[st],s[e]);
+            st++;e--;
+        }
+        for(int i=0;i<s.size();i++)
+         cout<<s[i];
+        
+        
+    }
+};
+
+
+
+Q3.LONGEST COMMON PREFIX
+code:
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& s) {
+        string ans="";
+        sort(s.begin(),s.end());
+        int i=0;
+        while(i<s[0].size()&&s[0][i]==s[s.size()-1][i]){
+            ans+=s[0][i];
+            i++;
+        }
+        return ans;
+        
+    }
+};
