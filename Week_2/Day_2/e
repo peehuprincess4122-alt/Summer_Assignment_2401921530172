@@ -1,0 +1,85 @@
+Q1.LONGEST SUBSTRING WITHOUT REPEATING CHARACTERS
+code:
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        set<char>m;
+        int l=0,maxl=0;
+        
+        for(int i=0;i<s.size();i++){
+            while(m.count(s[i])){
+                m.erase(s[l]);
+                l++;
+            }
+            m.insert(s[i]);
+            maxl=max(maxl,i-l+1);
+        }
+        return maxl;
+
+    }
+};
+
+
+
+Q2.PERMUTATION IN STRING
+code:
+
+bool ispm(string s1,string s2){
+    map<char,int>m;
+    for(int i=0;i<s1.size();i++){
+        m[s1[i]]++;
+        m[s2[i]]--;    }
+    
+    for(auto &it: m){
+        if(it.second!=0){
+            return false;
+        }
+    }
+    return true;
+}
+
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        int n=s2.size(),m=s1.size();
+        for(int i=0;i<=n-m;i++){
+            string t=s2.substr(i,m);
+            if(ispm(s1,t)) return true;
+        }
+        return false;
+
+        
+    }
+};
+
+
+
+
+Q3.FIND ALL ANAGRAMS IN A STRING
+code:
+
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int>ans;
+        int m=s.size(),n=p.size();
+        if(n>m) return ans;
+
+        vector<int>phsh(26);
+        vector<int>shsh(26);
+        for(int i=0;i<n;i++) phsh[p[i]-'a']++;
+        for(int i=0;i<m-n+1;i++){
+            if(i==0){
+                for(int j=0;j<n;j++) shsh[s[j]-'a']++;
+            }
+            if(i!=0){
+                shsh[s[i-1]-'a']--;
+                shsh[s[i+n-1]-'a']++;
+            }
+            if(phsh==shsh) ans.push_back(i);        
+        }    
+        return ans;    
+        
+    }
+};
