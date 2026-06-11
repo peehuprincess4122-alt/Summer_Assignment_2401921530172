@@ -1,0 +1,64 @@
+Q1.IMPLEMENT strSTR()
+code:
+
+class Solution {
+public:
+    int strStr(string hs, string nd) {
+        int n=hs.size(),m=nd.size();
+        if(m==0) return 0;
+        if(n<m) return -1;
+        for(int i=0;i<n;i++){
+            if(hs[i]==nd[0]){
+                if(hs.substr(i,m)==nd) return i;
+            }
+        }
+        return -1;
+        
+    }
+};
+
+
+
+Q2.IS SUBSEQUENCE
+code:
+
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        int i=0,j=0;
+        while(i<s.size()&&j<t.size()){
+            if(t[j]==s[i]) i++;
+            j++;
+        }    
+            if(i==s.size()) return true;
+            else return false;
+        
+
+        
+    }
+};
+
+
+
+Q3.REPEATED SUBSTRING PATTERN
+code:
+
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        int n=s.size();
+        for(int l=1;l<=n/2;l++){
+            if(n%l==0){
+                string sub=s.substr(0,l);
+                string t="";
+             while(t.size()<n){
+                t+=sub;
+                if(t==s) return true;
+             }
+            }    
+            
+        } 
+        return false;
+        
+    }
+};
