@@ -1,0 +1,114 @@
+Q1.REVERSE WORDS IN A STRING III
+code:
+
+class Solution {
+public:
+  void reverse(string &s,int j,int i){
+    while(j<i){
+        swap(s[j++],s[i--]);
+    }
+  }
+  string reverseWords(string s) {
+        int i=0,j=0,n=s.size();
+        while(i<n){
+            if(s[i]==' '){
+                reverse(s,j,i-1);
+                j=i+1;
+            }
+            else if(i==n-1){
+                reverse(s,j,i);
+            }
+            i++ ;
+        }
+        return s;
+        
+    }
+};
+
+
+
+Q2.DECODE STRING
+code:
+
+class Solution {
+public:
+    string decst(int &in,const string& s){
+        string str;
+        while(in<s.size()&& s[in]!=']'){
+            if(isdigit(s[in])){
+                int v=0;
+                while(in<s.size()&& isdigit(s[in])){
+                    v=v*10+s[in]-'0';
+                    in++;
+                }    
+                in++;
+                string t=decst(in,s);
+                while(v--)
+                  str+=t;
+                in++; 
+            }
+            else{
+              while(in<s.size()&& islower(s[in])){
+                str+=s[in];
+                in++;
+              }  
+            }
+        } 
+        return str;
+    }       
+    string decodeString(string s) {
+        int in=0;
+        return decst(in,s);
+        
+    }
+};
+
+
+
+
+Q3.GENERATE PARENTHESES
+code:
+
+class Solution {
+public:
+    void sl(string s,int o,int c,vector<string> &ans){
+        if(o==0 && c==0){
+            ans.push_back(s);
+            return;
+        }
+        
+        if(o==c){
+            string s1=s;
+            s1.push_back('(');
+            sl(s1,o-1,c,ans);
+        }
+         else if(o==0){
+            string s1=s;
+            s1.push_back(')');
+            sl(s1,o,c-1,ans);
+        }
+         else if(c==0){
+            string s1=s;
+            s1.push_back('(');
+            sl(s1,o-1,c,ans);
+        }
+        else{
+            string s1=s;
+            string s2=s;
+            s1.push_back('(');
+            s2.push_back(')');
+            sl(s1,o-1,c,ans);
+            sl(s2,o,c-1,ans);
+        }
+        
+
+    }
+    vector<string> generateParenthesis(int n) {
+        int o=n,c=n;
+        string s="";
+        vector<string> ans;
+        sl(s,o,c,ans);
+        return ans;
+        
+    }
+};
