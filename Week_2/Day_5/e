@@ -1,0 +1,92 @@
+Q1. GROUP ANAGRAMS
+code:
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& st) {
+        map<string,vector<string>>m;
+        for(int i=0;i<st.size();i++){
+            string s=st[i];
+            sort(s.begin(),s.end());
+            m[s].push_back(st[i]);
+        }
+        vector<vector<string>>a(m.size());
+        int in=0;
+        for(auto x:m){
+            auto t=x.second;
+            for(auto x:t){
+                a[in].push_back(x);
+            }
+            in++;
+        }
+        return a;
+        
+    }
+};
+
+
+
+
+Q2.STRING COMPRESSION
+code:
+
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        int  i,n=chars.size();
+        int in=0;
+        for(i=0;i<n;i++){
+            char ch=chars[i];
+            int c=0;
+            while(i<n&& chars[i]==ch){
+                c++;
+                i++;
+            }
+            if(c==1) chars[in++]=ch;   
+            else{
+                chars[in++]=ch;
+                string s=to_string(c);
+                for(char j: s){
+                    chars[in++]=j;
+                }
+            }  
+            i--;   
+        }
+        chars.resize(in);
+        return in;
+    }
+};
+
+
+
+Q3.LONGEST PALLINDROMIC SUBSTRING
+code:
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int l,h,max=1,st=0;
+        int n=s.size();
+        for(int i=1;i<n;i++){
+            l=i-1;
+            h=i;
+            while(l>=0 && h<n && s[l]==s[h]){
+                if(max<h-l+1){
+                    st=l;
+                    max=h-l+1;
+                }
+                l--;h++;
+            }
+            l=i-1;h=i+1;
+            while(l>=0 && h<n && s[l]==s[h]){
+                if(max<h-l+1){
+                    st=l;
+                    max=h-l+1;
+                }
+                l--;h++;
+            }
+        }
+        return s.substr(st,max);
+    }
+};
+
