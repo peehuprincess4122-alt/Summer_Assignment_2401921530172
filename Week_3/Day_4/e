@@ -1,0 +1,74 @@
+Q1.DAILY TEMPERATURES
+code:
+
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temp) {
+        vector<int>o(temp.size());
+        stack<pair<int,int>>st;
+        for(int i=0;i<temp.size();i++){
+            while(st.empty()==false && temp[i]>st.top().first){
+                o[st.top().second]=i-st.top().second;
+                st.pop();
+            }
+            st.push({temp[i],i});
+        }
+        return o;
+    }
+};
+
+
+
+Q2.EVALUATE REVERSE POLISH NOTATION
+code:
+
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int>st;
+        for(auto& s:tokens){
+            if(s=="+"|| s=="-"|| s=="*"||s=="/"){
+                int a=st.top();
+                st.pop();
+                int b=st.top();
+                st.pop();
+                if(s=="+") st.push(b+a);
+                else if(s=="-") st.push(b-a);
+                else if(s=="*") st.push(b*a);
+                else if(s=="/") st.push(b/a);
+            }
+            else{
+                st.push(stoi(s));
+            }
+        }
+        return st.top();
+    }
+};
+
+
+
+Q3.LARGEST RECTANGLE IN HISTOGRAM
+code:
+
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& h ){
+        stack<pair<int,int>>st;
+        int l=0,s,n=h.size();
+        for(int i=0;i<n;i++){
+            s=i;
+            while(st.empty()==false && st.top().second>h[i]){
+                auto& top=st.top();
+                l=max(l,top.second*(i-top.first));
+                s=top.first;
+                st.pop();
+            }
+            st.push({s,h[i]});
+        }
+        for(;st.empty()==false;st.pop()){
+            auto& top=st.top();
+            l=max(l,top.second*((int)n-top.first));
+        }
+        return l;
+    }
+};
